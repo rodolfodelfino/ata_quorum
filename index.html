@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata de Reunião</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: aqua;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        label, textarea, input {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ata da Reunião do Quórum de Élderes</h2>
+        <label for="data">Data:</label>
+        <input type="date" id="data">
+        
+        <label for="presidida">Presidida por:</label>
+        <input type="text" id="presidida" placeholder="Nome">
+        
+        <label for="dirigida">Dirigida por:</label>
+        <input type="text" id="dirigida" placeholder="Nome">
+        
+        <label for="oracao1">1º Oração Oferecida por:</label>
+        <input type="text" id="oracao1" placeholder="Nome">
+        
+        <label for="debate">Debate de 10 minutos - Tema:</label>
+        <input type="text" id="debate" placeholder="Tema">
+        
+        <label for="ministrado">Ministrado por:</label>
+        <input type="text" id="ministrado" placeholder="Nome">
+        
+        <label for="anuncios">Anúncios:</label>
+        <textarea id="anuncios" placeholder="Digite os anúncios"></textarea>
+        
+        <label for="temaAula">Tema da Aula:</label>
+        <input type="text" id="temaAula" placeholder="Tema">
+        
+        <label for="ministradoAula">Ministrado por:</label>
+        <input type="text" id="ministradoAula" placeholder="Nome">
+        
+        <label for="oracao2">Última oração oferecida por:</label>
+        <input type="text" id="oracao2" placeholder="Nome">
+        
+        <button onclick="gerarPDF()">Salvar como PDF</button>
+    </div>
+
+    <script>
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const data = document.getElementById('data').value;
+            const presidida = document.getElementById('presidida').value;
+            const dirigida = document.getElementById('dirigida').value;
+            const oracao1 = document.getElementById('oracao1').value;
+            const debate = document.getElementById('debate').value;
+            const ministrado = document.getElementById('ministrado').value;
+            const anuncios = document.getElementById('anuncios').value;
+            const temaAula = document.getElementById('temaAula').value;
+            const ministradoAula = document.getElementById('ministradoAula').value;
+            const oracao2 = document.getElementById('oracao2').value;
+            
+            let conteudo = `Ata da Reunião do Quórum de Élderes da Ala Jardim Santa Antonieta\n\n`;
+            conteudo += `Data: ${data}\n\n`;
+            conteudo += `Presidida por: ${presidida}\n`;
+            conteudo += `Dirigida por: ${dirigida}\n\n`;
+            conteudo += `1º Oração Oferecida por: ${oracao1}\n\n`;
+            conteudo += `Debate de 10 minutos - Tema: ${debate}\n`;
+            conteudo += `Ministrado por: ${ministrado}\n\n`;
+            conteudo += `Anúncios:\n${anuncios}\n\n`;
+            conteudo += `Tema da Aula: ${temaAula}\n`;
+            conteudo += `Ministrado por: ${ministradoAula}\n\n`;
+            conteudo += `Última oração oferecida por: ${oracao2}\n`;
+            
+            doc.text(conteudo, 10, 10);
+            doc.save("ata_reuniao.pdf");
+        }
+    </script>
+</body>
+</html>
