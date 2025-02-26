@@ -76,7 +76,7 @@
     <script>
         function gerarPDF() {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+            const doc = new jsPDF();
             
             const logo = document.getElementById('logo');
             const data = document.getElementById('data').value;
@@ -97,29 +97,18 @@
             ctx.drawImage(logo, 0, 0);
             const logoData = canvas.toDataURL('image/png');
             
-            doc.addImage(logoData, 'PNG', 75, 10, 60, 20);
-            doc.setFontSize(16);
-            doc.text("Ata da Reunião do Quórum de Élderes da Ala Jardim Santa Antonieta", 15, 40, { maxWidth: 180, align: "center" });
-            
-            doc.setFontSize(12);
-            let y = 50;
-            const lineSpacing = 8;
-            
-            function addText(label, value) {
-                doc.text(`${label}: ${value}`, 15, y);
-                y += lineSpacing;
-            }
-            
-            addText("Data", data);
-            addText("Presidida por", presidida);
-            addText("Dirigida por", dirigida);
-            addText("1º Oração Oferecida por", oracao1);
-            addText("Debate de 10 minutos - Tema", debate);
-            addText("Ministrado por", ministrado);
-            addText("Anúncios", anuncios);
-            addText("Tema da Aula", temaAula);
-            addText("Ministrado por", ministradoAula);
-            addText("Última oração oferecida por", oracao2);
+            doc.addImage(logoData, 'PNG', 80, 10, 50, 20);
+            doc.text("Ata da Reunião do Quórum de Élderes da Ala Jardim Santa Antonieta", 10, 40);
+            doc.text(`Data: ${data}`, 10, 50);
+            doc.text(`Presidida por: ${presidida}`, 10, 60);
+            doc.text(`Dirigida por: ${dirigida}`, 10, 70);
+            doc.text(`1º Oração Oferecida por: ${oracao1}`, 10, 80);
+            doc.text(`Debate de 10 minutos - Tema: ${debate}`, 10, 90);
+            doc.text(`Ministrado por: ${ministrado}`, 10, 100);
+            doc.text(`Anúncios: ${anuncios}`, 10, 110);
+            doc.text(`Tema da Aula: ${temaAula}`, 10, 120);
+            doc.text(`Ministrado por: ${ministradoAula}`, 10, 130);
+            doc.text(`Última oração oferecida por: ${oracao2}`, 10, 140);
             
             doc.save("ata_reuniao.pdf");
         }
